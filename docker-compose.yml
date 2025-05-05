@@ -1,0 +1,21 @@
+version: '3.9'
+
+services:
+  drupal:
+    image: drupal:10
+    ports:
+      - "8080:80"
+    volumes:
+      - ./modules/custom:/var/www/html/modules/custom
+      - ./themes/contrib:/var/www/html/themes/contrib
+    depends_on:
+      - postgres
+    restart: always
+
+  postgres:
+    image: postgres:15
+    environment:
+      POSTGRES_DB: drupal
+      POSTGRES_USER: drupal
+      POSTGRES_PASSWORD: drupal
+    restart: always
